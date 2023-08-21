@@ -51,5 +51,33 @@ namespace Negocio
             }
 
         }
+
+        public void Agregar(Articulos Nuevo)
+        {
+            AccesoDatos Datos = new AccesoDatos();
+
+            try
+            {
+                Datos.SetearConsulta("insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio)" +
+                    "values( @Codigo, @Nombre, @Descripcion, @IdMarca, @IdCategoria, @url, @Precio)");
+                Datos.SetearParametro("@Codigo", Nuevo.Codigo);
+                Datos.SetearParametro("@Nombre", Nuevo.Nombre);
+                Datos.SetearParametro("@Descripcion", Nuevo.Descripcion);
+                Datos.SetearParametro("@IdMarca", Nuevo.Marca.Id);
+                Datos.SetearParametro("@IdCategoria", Nuevo.Categoria.Id);
+                Datos.SetearParametro("@url", Nuevo.ImagenUrl);
+                Datos.SetearParametro("@Precio", Nuevo.Precio);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
     }
 }

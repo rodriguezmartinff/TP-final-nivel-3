@@ -31,5 +31,11 @@ namespace CatalogoWeb
             string IdSeleccionado = gvArticulos.SelectedDataKey.Value.ToString();
             Response.Redirect("Detalle.aspx?Id=" + IdSeleccionado);
         }
+
+        protected void gvArticulos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvArticulos.PageIndex = e.NewPageIndex;
+            gvArticulos.DataBind();
+        }
     }
 }

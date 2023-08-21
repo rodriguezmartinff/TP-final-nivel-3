@@ -5,7 +5,7 @@
     <h1>Lista de articulos:</h1>
     <asp:Label Text="text" ID="lblPrueba" runat="server" />
     <asp:GridView ID="gvArticulos" runat="server" CssClass="table" AutoGenerateColumns="false" PageSize="5" 
-        OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged" DataKeyNames="Id">
+        OnSelectedIndexChanged="gvArticulos_SelectedIndexChanged" DataKeyNames="Id" AllowPaging="true" OnPageIndexChanging="gvArticulos_PageIndexChanging">
         <Columns>
             <asp:BoundField HeaderText="Codigo" DataField="Codigo" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
