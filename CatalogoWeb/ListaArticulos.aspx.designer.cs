@@ -15,15 +15,6 @@ namespace CatalogoWeb
     {
 
         /// <summary>
-        /// lblPrueba control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPrueba;
-
-        /// <summary>
         /// gvArticulos control.
         /// </summary>
         /// <remarks>
@@ -31,5 +22,14 @@ namespace CatalogoWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvArticulos;
+
+        /// <summary>
+        /// gvArticulosLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvArticulosLogin;
     }
 }

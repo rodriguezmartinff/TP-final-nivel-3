@@ -13,17 +13,26 @@ namespace CatalogoWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-			try
-			{
+            try
+            {
                 ArticulosNegocio negocio = new ArticulosNegocio();
-                gvArticulos.DataSource = negocio.Listar();
-                gvArticulos.DataBind();
-			}
-			catch (Exception ex)
-			{
+                if (Session["usuario"] == null)
+                {
+                    gvArticulos.DataSource = negocio.Listar();
+                    gvArticulos.DataBind();
+                }
+                else
+                {
+                    gvArticulosLogin.DataSource = negocio.Listar();
+                    gvArticulosLogin.DataBind();
+                }
+
+            }
+            catch (Exception ex)
+            {
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx");
-			}
+            }
         }
 
         protected void gvArticulos_SelectedIndexChanged(object sender, EventArgs e)
@@ -36,6 +45,18 @@ namespace CatalogoWeb
         {
             gvArticulos.PageIndex = e.NewPageIndex;
             gvArticulos.DataBind();
+        }
+
+        protected void gvArticulosLogin_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string IdSeleccionado = gvArticulosLogin.SelectedDataKey.Value.ToString();
+            Response.Redirect("AgregarEditar.aspx?Id=" + IdSeleccionado);
+        }
+
+        protected void gvArticulosLogin_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvArticulosLogin.PageIndex = e.NewPageIndex;
+            gvArticulosLogin.DataBind();
         }
     }
 }

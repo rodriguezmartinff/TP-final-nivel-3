@@ -19,7 +19,13 @@ namespace CatalogoWeb
 			if (IsPostBack)
 				return;
 
-			try
+            if (Session["usuario"] == null)
+            {
+				Session.Add("error", "Primero debes loguearte");
+				Response.Redirect("Error.aspx");
+            }
+
+            try
 			{
 				CategoriaNegocio categorianegocio = new CategoriaNegocio();
 				ddlCategoria.DataSource = categorianegocio.listar();
@@ -32,7 +38,27 @@ namespace CatalogoWeb
 				ddlMarca.DataValueField = "Id";
 				ddlMarca.DataTextField = "Descripcion";
 				ddlMarca.DataBind();
-			}
+
+                string IdProducto = Request.QueryString["Id"] != null ? Request.QueryString["id"] : "";
+
+				if(IdProducto != "")
+				{
+					ArticulosNegocio negocio = new ArticulosNegocio();
+					Articulos articulo = new Articulos();
+					articulo = negocio.Listar(IdProducto)[0];
+
+					txtId.Text = IdProducto;
+					txtCodigo.Text = articulo.Codigo;
+					txtNombre.Text = articulo.Nombre;
+					txtDescripcion.Text = articulo.Descripcion;
+					txtImagenUrl.Text = articulo.ImagenUrl;
+					txtPrecio.Text = articulo.Precio.ToString();
+					ddlCategoria.SelectedValue = articulo.Categoria.Id.ToString();
+					ddlMarca.SelectedValue = articulo.Marca.Id.ToString();
+
+					txtImagenUrl_TextChanged(sender, e);
+				}
+            }
 			catch (Exception ex)
 			{
 				Session.Add("error", ex.ToString());
@@ -58,6 +84,7 @@ namespace CatalogoWeb
 			{
 				ArticulosNegocio articulonegocio = new ArticulosNegocio();
 				Articulos nuevo = new Articulos();
+				nuevo.Id = int.Parse(txtId.Text);
 				nuevo.Nombre = txtNombre.Text;
 				nuevo.Codigo = txtCodigo.Text;
 				nuevo.Descripcion = txtDescripcion.Text;
@@ -70,7 +97,11 @@ namespace CatalogoWeb
 				nuevo.Categoria = new Categorias();
 				nuevo.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
 
-				articulonegocio.Agregar(nuevo);
+				if (txtId.Text == "")
+					articulonegocio.Agregar(nuevo);
+				else
+					articulonegocio.Modificar(nuevo);
+
 				Response.Redirect("ListaArticulos.aspx", false);
 
 			}
