@@ -31,7 +31,7 @@
                                 <a class="nav-link" href="ListaArticulos.aspx">Lista de articulos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" <%--href="Login.aspx"--%>>Login</a>
+                                <a class="nav-link" href="Login.aspx">Login</a>
                             </li>
                             <%if (Session["usuario"] != null)
                                 {%>
