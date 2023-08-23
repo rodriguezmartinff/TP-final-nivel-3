@@ -4,6 +4,61 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1>Lista de articulos:</h1>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <asp:Label Text="Buscar por nombre" runat="server" />
+                <asp:TextBox runat="server" ID="txtBuscar" CssClass="form-control" OnTextChanged="txtBuscar_TextChanged" AutoPostBack="true" />
+            </div>
+        </div>
+
+        <div class="col-6">
+            <br />
+            <asp:CheckBox Text="Filtro avanzado" ID="cbFiltroAvanzado" runat="server" AutoPostBack="true"
+                OnCheckedChanged="cbFiltroAvanzado_CheckedChanged" />
+        </div>
+    </div>
+
+    <%if (FiltroAvanzado)
+        { %>
+    <div class="row">
+        <div class="col-3">
+            <div class="mb-3">
+                <asp:Label Text="Campo" ID="lblCampo" runat="server" />
+                <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCampo"
+                    OnSelectedIndexChanged="ddlCampo_SelectedIndexChanged" AutoPostBack="true">
+                    <asp:ListItem Text="Nombre" />
+                    <asp:ListItem Text="Categoria" />
+                    <asp:ListItem Text="Precio" />
+                </asp:DropDownList>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="mb-3">
+                <asp:Label Text="Criterio" ID="lblCriterio" runat="server" />
+                <asp:DropDownList runat="server" CssClass="form-control" ID="ddlCriterio" />
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="mb-3">
+                <asp:Label Text="Filtro" ID="lblFiltro" runat="server" />
+                <asp:TextBox ID="txtFiltroAvanzado" runat="server" CssClass="form-control" />
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="mb-3">
+                <br />
+                <asp:Button ID="btnBusquedaAvanzada" runat="server" CssClass="btn btn-primary"
+                    Text="Buscar" OnClick="btnBusquedaAvanzada_Click" />
+            </div>
+        </div>
+    </div>
+    <%}%>
+
     <%if (Session["usuario"] == null)
         { %>
     <asp:GridView ID="gvArticulos" runat="server" CssClass="table" AutoGenerateColumns="false" PageSize="5"
@@ -19,8 +74,8 @@
         </Columns>
     </asp:GridView>
     <%}
-    else
-    { %>
+        else
+        { %>
     <asp:GridView ID="gvArticulosLogin" runat="server" CssClass="table" AutoGenerateColumns="false" PageSize="5"
         OnSelectedIndexChanged="gvArticulosLogin_SelectedIndexChanged" DataKeyNames="Id" AllowPaging="true" OnPageIndexChanging="gvArticulosLogin_PageIndexChanging">
         <Columns>

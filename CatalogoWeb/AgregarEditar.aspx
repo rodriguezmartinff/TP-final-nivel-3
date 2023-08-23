@@ -32,8 +32,12 @@
                 <label for="txtPrecio" class="form-label">Precio:</label>
                 <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control" />
             </div>
-            <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click"/>
-            <asp:Button Text="Cancelar" runat="server" ID="btnCancelar" CssClass="btn btn-secondary" OnClick="btnCancelar_Click"/>
+            <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
+            <%if (Request.QueryString["Id"] != null)
+                { %>
+            <asp:Button Text="Eliminar" runat="server" ID="btnEliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
+            <%} %>
+            <asp:Button Text="Cancelar" runat="server" ID="btnCancelar" CssClass="btn btn-secondary" OnClick="btnCancelar_Click" />
         </div>
 
         <div class="col-6">
@@ -54,6 +58,17 @@
 
                 </ContentTemplate>
             </asp:UpdatePanel>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <%if (ConfirmaEliminacion)
+                {%>
+            <asp:CheckBox Text="Confirmar eliminación" runat="server" ID="cbConfirmaEliminacion" />
+            <asp:Button Text="Si, eliminar." runat="server" ID="btnConfirmarEliminacion" CssClass="btn btn-outline-danger"
+                OnClick="btnConfirmarEliminacion_Click" />
+            <%}%>
         </div>
     </div>
 </asp:Content>

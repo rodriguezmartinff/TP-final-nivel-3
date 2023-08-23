@@ -12,9 +12,11 @@ namespace CatalogoWeb
 {
     public partial class AgregarEditar : System.Web.UI.Page
     {
+		public bool ConfirmaEliminacion { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
 			txtId.Enabled = false;
+			ConfirmaEliminacion = false;
 
 			if (IsPostBack)
 				return;
@@ -115,6 +117,29 @@ namespace CatalogoWeb
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
 			Response.Redirect("ListaArticulos.aspx");
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+			ConfirmaEliminacion = true;
+        }
+
+        protected void btnConfirmarEliminacion_Click(object sender, EventArgs e)
+        {
+			try
+			{
+				if (cbConfirmaEliminacion.Checked)
+				{
+                    ArticulosNegocio negocio = new ArticulosNegocio();
+                    negocio.Eliminar(int.Parse(txtId.Text));
+					Response.Redirect("ListaArticulos.aspx", false);
+                }
+			}
+			catch (Exception ex)
+			{
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
         }
     }
 }
