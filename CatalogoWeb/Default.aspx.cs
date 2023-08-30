@@ -12,10 +12,17 @@ namespace CatalogoWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ArticulosNegocio negocio = new ArticulosNegocio();
-            repRepetidor.DataSource = negocio.Listar();
-            repRepetidor.DataBind();
-
+            try
+            {
+                ArticulosNegocio negocio = new ArticulosNegocio();
+                repRepetidor.DataSource = negocio.Listar();
+                repRepetidor.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }

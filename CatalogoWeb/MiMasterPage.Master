@@ -30,19 +30,22 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="ListaArticulos.aspx">Lista de articulos</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Login.aspx">Login</a>
-                            </li>
-                            <%if (Session["usuario"] != null)
-                                {%>
-                            <li class="nav-item">
-                                <a class="nav-link" <%--href="Perfil.aspx"--%>>Perfil</a>
-                            </li>
-                            <% } %>
                         </ul>
-                        <%--<div class="d-flex">--%>
+
+                        <%if (Session["usuario"] != null)
+                            {%>
+                        <div class="me-3">
+                            <a class="nav-link" href="Perfil.aspx" style="color: white">Perfil</a>
+                        </div>
+                        <%}
+                        else
+                        {%>
+                        <div class="me-3">
+                            <a class="nav-link" href="Login.aspx" style="color: white">Login</a>
+                        </div>
+                        <%}%>
                         <asp:Image ID="imgAvatar" Style="height: 40px; width: 40px; border-radius: 50%;" runat="server" />
-                        <%--</div>--%>
+
                     </div>
                 </div>
             </nav>

@@ -73,11 +73,15 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                //datos.SetearConsulta("update USUARIO set Imagen = @imagen, FechaNacimiento = @fecha where Id = @id");
-                //datos.SetearParametro("@imagen", usuario.Imagen);
-                //datos.SetearParametro("@id", usuario.Id);
-                //datos.SetearParametro("@fecha", usuario.Fecha);
-                //datos.EjecutarAccion();
+                datos.SetearConsulta("update USERS set email = @email, pass = @pass, nombre = @nombre," +
+                    " apellido = @apellido, urlImagenPerfil = @imagen where Id = @id");
+                datos.SetearParametro("@id", usuario.Id);
+                datos.SetearParametro("@email", usuario.Email);
+                datos.SetearParametro("@pass", usuario.Contraseña);
+                datos.SetearParametro("@nombre", usuario.Nombre);
+                datos.SetearParametro("@apellido", usuario.Apellido);
+                datos.SetearParametro("@imagen", usuario.UrlImagen);
+                datos.EjecutarAccion();
             }
             catch (Exception ex)
             {
