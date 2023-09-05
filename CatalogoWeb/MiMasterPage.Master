@@ -34,22 +34,30 @@
                                 <a class="nav-link" href="Favoritos.aspx">Favoritos</a>
                             </li>
                         </ul>
+                        <ul class="navbar-nav mb-2 mb-lg-0">
+                            <%if (Session["usuario"] != null)
+                                {%>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="color: white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Perfil
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link" href="Perfil.aspx" style="color: white">Mi perfil</a></li>
+                                    <li>
+                                        <asp:Button Text="Salir" CssClass="btn btn-danger" runat="server" ID="btnSalir" OnClick="btnSalir_Click"/></li>
+                                </ul>
+                            </li>
+                            <%}
+                                else
+                                {%>
 
-                        <%if (Session["usuario"] != null)
-                            {%>
-                        <div class="me-3">
-                            <a class="nav-link" href="Perfil.aspx" style="color: white">Perfil</a>
-                        </div>
-                        <%}
-                            else
-                            {%>
-
-                        <div class="me-3">
-                            <a class="nav-link" href="Login.aspx" style="color: white">Login</a>
-                        </div>
-                        <%}%>
-                        <asp:Image ID="imgAvatar" Style="height: 40px; width: 40px; border-radius: 50%; object-fit: contain;" runat="server" onerror="this.src='https://www.eleonoracardona.com/wp-content/uploads/2016/04/sin-foto-300x189.jpg'" />
-
+                            <li class="me-3">
+                                <a class="nav-link" href="Login.aspx" style="color: white">Login</a>
+                            </li>
+                            <%}%>
+                            <li>
+                                <asp:Image ID="imgAvatar" Style="height: 40px; width: 40px; border-radius: 50%; object-fit: contain;" runat="server" onerror="this.src='https://www.eleonoracardona.com/wp-content/uploads/2016/04/sin-foto-300x189.jpg'" />
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>

@@ -21,5 +21,11 @@ namespace CatalogoWeb
                 imgAvatar.ImageUrl = "~/Imagenes/Perfil/sinfoto.jpg";
             }
         }
+
+        protected void btnSalir_Click(object sender, EventArgs e)
+        {
+            Session.Remove("usuario");
+            Response.Redirect("Default.aspx", false);
+        }
     }
 }
