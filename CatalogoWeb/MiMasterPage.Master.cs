@@ -14,7 +14,11 @@ namespace CatalogoWeb
         {
             if (Session["usuario"] != null)
             {
-                imgAvatar.ImageUrl = ((Usuario)Session["usuario"]).UrlImagen;
+                imgAvatar.ImageUrl = "~/Imagenes/Perfil/" + ((Usuario)Session["usuario"]).UrlImagen;
+            }
+            else
+            {
+                imgAvatar.ImageUrl = "~/Imagenes/Perfil/sinfoto.jpg";
             }
         }
     }

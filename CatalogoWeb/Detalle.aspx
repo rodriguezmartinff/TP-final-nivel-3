@@ -26,6 +26,7 @@
                 <label for="lblMarca" class="form-label">Marca:</label>
                 <asp:Label runat="server" Text="Label" id="lblMarca" cssclass="form-control"></asp:Label>
             </div>
+            <asp:Button Text="Agregar a favoritos" runat="server" CssClass="btn btn-primary" ID="btnAgregar" OnClick="btnAgregar_Click"/>
         </div>
         <div class="col-6">
             <div class="mb-3">

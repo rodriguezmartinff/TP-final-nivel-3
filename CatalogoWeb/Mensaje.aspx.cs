@@ -14,6 +14,8 @@ namespace CatalogoWeb
         {
             if (Session["usuarioactualizado"] != null)
                 lblMensaje.Text = Session["usuarioactualizado"].ToString();
+
+            lblMensaje.Text = Session["mensaje"].ToString();
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)

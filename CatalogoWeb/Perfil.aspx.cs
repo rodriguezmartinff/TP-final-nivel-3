@@ -31,9 +31,10 @@ namespace CatalogoWeb
             txtContraseña.Text = usuario.Contraseña;
             txtNombre.Text = usuario.Nombre;
             txtApellido.Text = usuario.Apellido;
-            txtImagen.Text = usuario.UrlImagen;
-            CargarImagen();
+            imgImagen.ImageUrl = "~/Imagenes/Perfil/" + usuario.UrlImagen;
 
+            CargarImagen();
+            
             Editar = false;
             ActivarEditar();
         }
@@ -56,7 +57,11 @@ namespace CatalogoWeb
                 usuario.Contraseña = txtContraseña.Text;
                 usuario.Nombre = txtNombre.Text;
                 usuario.Apellido = txtApellido.Text;
-                usuario.UrlImagen = txtImagen.Text;
+                
+
+                string rutaImagen = Server.MapPath("./Imagenes/Perfil/");   //ruta del servidor
+                txtImagenLocal.PostedFile.SaveAs(rutaImagen + "Perfil-" + int.Parse(txtId.Text) + ".jpg");   //guarda la imagen en la ruta del servidor
+                usuario.UrlImagen = "Perfil-" + int.Parse(txtId.Text) + ".jpg";
 
                 negocio.Actualizar(usuario);
 
@@ -88,8 +93,7 @@ namespace CatalogoWeb
 
         protected void CargarImagen()
         {
-            imgImagen.ImageUrl = txtImagen.Text;
-            //ImagenUrl = txtImagen.Text;
+            //imgImagen.ImageUrl = txtImagen.Text;
         }
 
         protected void ActivarEditar()
@@ -99,7 +103,7 @@ namespace CatalogoWeb
             txtContraseña.Enabled = Editar;
             txtNombre.Enabled = Editar;
             txtApellido.Enabled = Editar;
-            txtImagen.Enabled = Editar;
+            txtImagenLocal.Visible = Editar;
         }
     }
 }

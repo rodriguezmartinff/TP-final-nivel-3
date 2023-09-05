@@ -85,6 +85,7 @@ namespace CatalogoWeb
         {
             FiltroAvanzado = cbFiltroAvanzado.Checked;
             txtBuscar.Enabled = !FiltroAvanzado;
+            ddlCampo_SelectedIndexChanged(sender, e);
         }
 
         protected void ddlCampo_SelectedIndexChanged(object sender, EventArgs e)

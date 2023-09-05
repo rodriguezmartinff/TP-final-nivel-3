@@ -114,9 +114,9 @@ namespace Negocio
 
         public void Eliminar(int Id)
         {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                AccesoDatos datos = new AccesoDatos();
                 datos.SetearConsulta("delete from ARTICULOS where Id = @Id");
                 datos.SetearParametro("@Id", Id);
 
@@ -124,8 +124,11 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-
                 throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
             }
         }
 
@@ -194,13 +197,13 @@ namespace Negocio
                     switch (criterio)
                     {
                         case "Empieza con":
-                            consulta += "A.Descripcion like '" + filtro + "%'";
+                            consulta += "C.Descripcion like '" + filtro + "%'";
                             break;
                         case "Termina con":
-                            consulta += "A.Descripcion like '%" + filtro + "'";
+                            consulta += "C.Descripcion like '%" + filtro + "'";
                             break;
                         default:
-                            consulta += "A.Descripcion like '%" + filtro + "%'";
+                            consulta += "C.Descripcion like '%" + filtro + "%'";
                             break;
 
                     }

@@ -30,6 +30,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="ListaArticulos.aspx">Lista de articulos</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Favoritos.aspx">Favoritos</a>
+                            </li>
                         </ul>
 
                         <%if (Session["usuario"] != null)
@@ -38,13 +41,14 @@
                             <a class="nav-link" href="Perfil.aspx" style="color: white">Perfil</a>
                         </div>
                         <%}
-                        else
-                        {%>
+                            else
+                            {%>
+
                         <div class="me-3">
                             <a class="nav-link" href="Login.aspx" style="color: white">Login</a>
                         </div>
                         <%}%>
-                        <asp:Image ID="imgAvatar" Style="height: 40px; width: 40px; border-radius: 50%;" runat="server" />
+                        <asp:Image ID="imgAvatar" Style="height: 40px; width: 40px; border-radius: 50%; object-fit: contain;" runat="server" onerror="this.src='https://www.eleonoracardona.com/wp-content/uploads/2016/04/sin-foto-300x189.jpg'" />
 
                     </div>
                 </div>

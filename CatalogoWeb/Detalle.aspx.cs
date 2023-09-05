@@ -11,11 +11,16 @@ namespace CatalogoWeb
 {
     public partial class Detalle : System.Web.UI.Page
     {
+        protected string IdProducto { get; set; }
+        protected Usuario Usuario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] != null)
+                Usuario = (Usuario)Session["usuario"];
+
             try
             {
-                string IdProducto = Request.QueryString["Id"] != null ? Request.QueryString["id"] : "";
+                IdProducto = Request.QueryString["Id"] != null ? Request.QueryString["id"] : "";
 
 
                 if (IdProducto != "")
@@ -34,6 +39,23 @@ namespace CatalogoWeb
                     lblPrecio.Text = articulo.Precio.ToString();
                     imgImagen.ImageUrl = articulo.ImagenUrl;
                 }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            FavoritosNegocio negocio = new FavoritosNegocio();
+
+            try
+            {
+                negocio.Agregar( Usuario.Id, int.Parse(IdProducto));
+                Session.Add("mensaje", "Agregado correctamente");
+                Response.Redirect("Mensaje.aspx", false);
             }
             catch (Exception ex)
             {

@@ -28,11 +28,11 @@
             </div>
             <%if (Editar)
                 {%>
-            <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" OnClick="btnAceptar_Click" cssclass="btn btn-primary"/>
+            <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary" />
             <asp:Button Text="Cancelar" runat="server" ID="btnCancelar" OnClick="btnCancelar_Click" CssClass="btn btn-danger" />
             <%}
-            else
-            {%>
+                else
+                {%>
             <asp:Button Text="Editar" runat="server" ID="btnEditar" CssClass="btn btn-primary" OnClick="btnEditar_Click" />
             <%} %>
         </div>
@@ -40,11 +40,9 @@
         <div class="col-6">
             <div class="mb-3">
                 <label>Url imagen de perfil:</label>
-                <asp:TextBox runat="server" ID="txtImagen" CssClass="form-control" OnTextChanged="txtImagen_TextChanged" AutoPostBack="true"/> 
+                <input type="file" id="txtImagenLocal" class="form-control" runat="server"/>
             </div>
             <asp:Image runat="server" ID="imgImagen" Style="width: 350px; height: 350px; object-fit: contain;" onerror="this.src='https://wintechnology.co/wp-content/uploads/2021/11/imagen-no-disponible.jpg'"></asp:Image>
-            <%--<img src="<%ImagenUrl%>" onerror="this.src='https://wintechnology.co/wp-content/uploads/2021/11/imagen-no-disponible.jpg'"/>--%>
-            <%--<img src="<%ImagenUrl%>" onerror="this.src='https://wintechnology.co/wp-content/uploads/2021/11/imagen-no-disponible.jpg'" class="card-img-top" alt="..." Style="max-width: 325px; height: 325px; object-fit: contain;">--%>
         </div>
     </div>
 </asp:Content>
