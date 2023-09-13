@@ -16,8 +16,8 @@ namespace CatalogoWeb
         {
             FiltroAvanzado = cbFiltroAvanzado.Checked;
 
-            if (IsPostBack)
-                return;
+            //if (IsPostBack)
+            //    return;
 
             try
             {
@@ -110,9 +110,19 @@ namespace CatalogoWeb
             try
             {
                 ArticulosNegocio negocio = new ArticulosNegocio();
-                gvArticulos.DataSource = negocio.Filtrar(ddlCampo.SelectedValue.ToString(),
+
+                if (Session["usuario"] == null)
+                {
+                    gvArticulos.DataSource = negocio.Filtrar(ddlCampo.SelectedValue.ToString(),
                     ddlCriterio.SelectedValue.ToString(), txtFiltroAvanzado.Text);
-                gvArticulos.DataBind();
+                    gvArticulos.DataBind();
+                }
+                else
+                {
+                    gvArticulosLogin.DataSource = negocio.Filtrar(ddlCampo.SelectedValue.ToString(),
+                    ddlCriterio.SelectedValue.ToString(), txtFiltroAvanzado.Text);
+                    gvArticulosLogin.DataBind();
+                }
             }
             catch (Exception ex)
             {

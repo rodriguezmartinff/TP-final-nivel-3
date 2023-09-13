@@ -15,11 +15,18 @@ namespace CatalogoWeb
         public List<Dominio.Favoritos> ListaFav { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Usuario usuario = null;
+
+            if (Session["usuario"] != null){
+                usuario = (Usuario)Session["usuario"];
+            }
+            else
+            {
+                Session.Add("mensaje", "Primero debes logearte");
+                Response.Redirect("Mensaje.aspx");
+            }
             
-
-            Usuario usuario = (Usuario)Session["Usuario"];
-
-			try
+            try
 			{
 				FavoritosNegocio negocio = new FavoritosNegocio();
                 ListaFav = negocio.Listar(usuario.Id);

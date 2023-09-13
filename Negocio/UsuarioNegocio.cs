@@ -44,16 +44,15 @@ namespace Negocio
             }
         }
 
-        public int AgregarNuevo(Usuario nuevo)
+        public void AgregarNuevo(Usuario nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                //datos.SetearProcedure("insertarNuevo");
-                //datos.SetearParametro("@usuario", nuevo.NombreUsuario);
-                //datos.SetearParametro("@contraseña", nuevo.Contraseña);
-
-                //return datos.EjecutarAccionScalar();
+                datos.SetearConsulta("insert into USERS(email, pass) values (@email, @pass)");
+                datos.SetearParametro("@email", nuevo.Email);
+                datos.SetearParametro("@pass", nuevo.Contraseña);
+                datos.EjecutarAccion();
             }
             catch (Exception ex)
             {
@@ -63,8 +62,6 @@ namespace Negocio
             {
                 datos.CerrarConexion();
             }
-
-            return 0;
         }
 
         public void Actualizar(Usuario usuario)

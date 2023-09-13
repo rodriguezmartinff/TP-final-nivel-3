@@ -13,11 +13,24 @@ namespace CatalogoWeb
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (IsPostBack)
+            {
+                
+            }
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
+            Page.Validate();
+            if (!Page.IsValid)
+                return;
+
+            if(txtEmail.Text == "" || txtPass.Text == "")
+            {
+                lblMensaje.Text = "campos vacios.";
+                return;
+            }
+
             try
             {
                 UsuarioNegocio negocio = new UsuarioNegocio();

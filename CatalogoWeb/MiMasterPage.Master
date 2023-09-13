@@ -43,7 +43,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="nav-link" href="Perfil.aspx" style="color: white">Mi perfil</a></li>
                                     <li>
-                                        <asp:Button Text="Salir" CssClass="btn btn-danger" runat="server" ID="btnSalir" OnClick="btnSalir_Click"/></li>
+                                        <asp:Button Text="Salir" CssClass="btn btn-danger" runat="server" ID="btnSalir" OnClick="btnSalir_Click" /></li>
                                 </ul>
                             </li>
                             <%}

@@ -1,6 +1,40 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MiMasterPage.Master" AutoEventWireup="true" CodeBehind="AgregarEditar.aspx.cs" Inherits="CatalogoWeb.AgregarEditar" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .validar{
+            color: red;
+            font-size: 13px;
+        }
+    </style>
+    <script>
+        function validar() {
+            const txtCodigo = document.getElementById("txtCodigo");
+            const txtNombre = document.getElementById("txtNombre");
+            var resultado = new Boolean(true);
+
+            if (txtCodigo.value == "") {
+                txtCodigo.classList.remove("is-valid");
+                txtCodigo.classList.add("is-invalid");
+                resultado = false;
+            } else {
+                txtCodigo.classList.remove("is-invalid");
+                txtCodigo.classList.add("is-valid");
+            }
+
+            if (txtNombre.value == "") {
+                txtNombre.classList.remove("is-valid");
+                txtNombre.classList.add("is-invalid");
+                resultado = false;
+            } else {
+                txtNombre.classList.remove("is-invalid");
+                txtNombre.classList.add("is-valid");
+            }
+
+
+            return resultado;
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
@@ -13,12 +47,16 @@
                 <asp:TextBox runat="server" ID="txtId" CssClass="form-control" />
             </div>
             <div class="mb-3">
-                <label for="txtCodigo" class="form-label">Codigo:</label>
-                <asp:TextBox runat="server" ID="txtCodigo" CssClass="form-control" />
+                <label for="txtCodigo" class="form-label">código:</label>
+                <asp:TextBox runat="server" ID="txtCodigo" CssClass="form-control" ClientIDMode="Static" />
+                <label class="valid-feedback">Se ve bien!</label>
+                <label class="invalid-feedback">Ingrese código</label>
             </div>
             <div class="mb-3">
                 <label for="txtNombre" class="form-label">Nombre:</label>
-                <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" ClientIDMode="Static" />
+                <label class="valid-feedback">Se ve bien!</label>
+                <label class="invalid-feedback">Ingrese Nombre</label>
             </div>
             <div class="mb-3">
                 <label for="ddlMarca" class="form-label">Marca:</label>
@@ -31,8 +69,9 @@
             <div class="mb-3">
                 <label for="txtPrecio" class="form-label">Precio:</label>
                 <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control" />
+                <asp:RegularExpressionValidator ErrorMessage="Solo numeros" CssClass="validar" ControlToValidate="txtPrecio" runat="server" ValidationExpression="^[0-9]+$" />
             </div>
-            <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" />
+            <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" OnClientClick="return validar()" />
             <%if (Request.QueryString["Id"] != null)
                 { %>
             <asp:Button Text="Eliminar" runat="server" ID="btnEliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />

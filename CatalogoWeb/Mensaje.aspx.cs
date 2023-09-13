@@ -9,18 +9,36 @@ namespace CatalogoWeb
 {
     public partial class Mensaje : System.Web.UI.Page
     {
-        
+        private int codigo;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["usuarioactualizado"] != null)
-                lblMensaje.Text = Session["usuarioactualizado"].ToString();
+            switch (Session["mensaje"])
+            {
+                case 1:
+                    lblMensaje.Text = "Perfil agregado correctamente.";
+                    break;
+                default:
+                    lblMensaje.Text = Session["mensaje"].ToString();
+                    break;
+            }
 
-            lblMensaje.Text = Session["mensaje"].ToString();
+
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Perfil.aspx", false);
+            switch (Session["mensaje"])
+            {
+                case "Primero debes logearte":
+                    Response.Redirect("Login.aspx");
+                    break;
+                case 1: //usuario agregado corectamente
+                    Response.Redirect("Login.aspx");
+                    break;
+                default:
+                    Response.Redirect("Default.aspx");
+                    break;
+            }
         }
     }
 }

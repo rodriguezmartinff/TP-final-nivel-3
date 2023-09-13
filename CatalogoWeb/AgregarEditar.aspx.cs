@@ -21,13 +21,13 @@ namespace CatalogoWeb
 			if (IsPostBack)
 				return;
 
-            if (Session["usuario"] == null)
-            {
+			if (Session["usuario"] == null)
+			{
 				Session.Add("error", "Primero debes loguearte");
 				Response.Redirect("Error.aspx");
-            }
+			}
 
-            try
+			try
 			{
 				CategoriaNegocio categorianegocio = new CategoriaNegocio();
 				ddlCategoria.DataSource = categorianegocio.listar();
@@ -82,16 +82,20 @@ namespace CatalogoWeb
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
+			Page.Validate();
+			if (!Page.IsValid)
+				return;
+
 			try
 			{
 				ArticulosNegocio articulonegocio = new ArticulosNegocio();
 				Articulos nuevo = new Articulos();
-				nuevo.Id = int.Parse(txtId.Text);
+				nuevo.Id = txtId.Text != "" ? int.Parse(txtId.Text) : 0;
 				nuevo.Nombre = txtNombre.Text;
 				nuevo.Codigo = txtCodigo.Text;
 				nuevo.Descripcion = txtDescripcion.Text;
 				nuevo.ImagenUrl = txtImagenUrl.Text;
-				nuevo.Precio = Decimal.Parse(txtPrecio.Text);
+				nuevo.Precio = txtPrecio.Text != "" ? Decimal.Parse(txtPrecio.Text) : 0;
 
 				nuevo.Marca = new Marcas();
 				nuevo.Marca.Id = int.Parse(ddlMarca.SelectedValue);

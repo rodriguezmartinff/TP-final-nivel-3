@@ -3,5 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:Label Text="" runat="server" id="lblMensaje"/>
+    <br />
+    <br />
     <asp:Button Text="Aceptar" runat="server" id="btnAceptar" OnClick="btnAceptar_Click" CssClass="btn btn-primary"/>
 </asp:Content>
