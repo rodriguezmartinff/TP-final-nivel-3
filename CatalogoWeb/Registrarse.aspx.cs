@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -45,11 +46,18 @@ namespace CatalogoWeb
                 nuevo.Email = txtEmail.Text;
                 nuevo.Contraseña = txtPass.Text;
                 UsuarioNegocio negocio = new UsuarioNegocio();
+
+                if (negocio.UsuarioExistente(nuevo))
+                {
+                    Session.Add("mensaje", 9);
+                    Response.Redirect("Mensaje.aspx");
+                }
                 negocio.AgregarNuevo(nuevo);
 
                 Session.Add("mensaje", 1);  //usuario generado correctamente
                 Response.Redirect("Mensaje.aspx", false);
             }
+            catch (ThreadAbortException) { }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());

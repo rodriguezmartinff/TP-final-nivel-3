@@ -20,18 +20,22 @@ namespace CatalogoWeb
 
             if (Session["usuario"] == null)
             {
-                Session.Add("Error", "Primero debes loguearte.");
-                Response.Redirect("Error.aspx", false);
+                Session.Add("mensaje", 2);  //primero debes loguearte
+                Response.Redirect("Mensaje.aspx");
             }
+            Usuario usuario = new Usuario();
 
-            Usuario usuario = (Usuario)Session["usuario"];
+            usuario = (Usuario)Session["usuario"];
 
             txtId.Text = usuario.Id.ToString();
             txtEmail.Text = usuario.Email;
             txtContraseña.Text = usuario.Contraseña;
             txtNombre.Text = usuario.Nombre;
             txtApellido.Text = usuario.Apellido;
-            imgImagen.ImageUrl = "~/Imagenes/Perfil/" + usuario.UrlImagen;
+
+            
+            ViewState["auximagen"] = usuario.UrlImagen;
+            imgImagen.ImageUrl = "~/Imagenes/Perfil/" + ViewState["auximagen"] + "?v=" + DateTime.Now.Ticks.ToString();
 
             CargarImagen();
             
@@ -47,6 +51,12 @@ namespace CatalogoWeb
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
+            if(txtEmail.Text == "" || txtContraseña.Text == "")
+            {
+                Session.Add("mensaje", 10);
+                Response.Redirect("Mensaje.aspx");
+            }
+
             try
             {
                 UsuarioNegocio negocio = new UsuarioNegocio();
@@ -58,10 +68,17 @@ namespace CatalogoWeb
                 usuario.Nombre = txtNombre.Text;
                 usuario.Apellido = txtApellido.Text;
                 
-
-                string rutaImagen = Server.MapPath("./Imagenes/Perfil/");   //ruta del servidor
-                txtImagenLocal.PostedFile.SaveAs(rutaImagen + "Perfil-" + int.Parse(txtId.Text) + ".jpg");   //guarda la imagen en la ruta del servidor
-                usuario.UrlImagen = "Perfil-" + int.Parse(txtId.Text) + ".jpg";
+                if(txtImagenLocal.Value != "")
+                {
+                    string rutaImagen = Server.MapPath("./Imagenes/Perfil/");   //ruta del servidor
+                    txtImagenLocal.PostedFile.SaveAs(rutaImagen + "Perfil-" + int.Parse(txtId.Text) + ".jpg");   //guarda la imagen en la ruta del servidor
+                    usuario.UrlImagen = "Perfil-" + int.Parse(txtId.Text) + ".jpg";
+                }
+                else
+                {
+                    usuario.UrlImagen = (string)ViewState["auximagen"];
+                }
+                
 
                 negocio.Actualizar(usuario);
 
@@ -69,7 +86,7 @@ namespace CatalogoWeb
 
                 Session.Remove("usuario");
                 Session.Add("usuario", usuario);
-                Session.Add("usuarioactualizado", "Usuario actualizado correctamente");
+                Session.Add("mensaje", 4);  //perfil actualizado correctamente
                 Response.Redirect("Mensaje.aspx", false);
             }
             catch (Exception ex)
@@ -81,14 +98,12 @@ namespace CatalogoWeb
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            Editar = false;
-            ActivarEditar();
+            Response.Redirect("Perfil.aspx");
         }
 
         protected void txtImagen_TextChanged(object sender, EventArgs e)
         {
-            CargarImagen();
-            Editar = true;
+            imgImagen.ImageUrl = "~/Imagenes/Perfil/" + ViewState["auximagen"];
         }
 
         protected void CargarImagen()
@@ -98,12 +113,13 @@ namespace CatalogoWeb
 
         protected void ActivarEditar()
         {
-            txtId.Enabled = Editar;
             txtEmail.Enabled = Editar;
             txtContraseña.Enabled = Editar;
             txtNombre.Enabled = Editar;
             txtApellido.Enabled = Editar;
-            txtImagenLocal.Visible = Editar;
+            txtImagenLocal.Disabled = !Editar;
         }
+
+
     }
 }

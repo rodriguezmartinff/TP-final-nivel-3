@@ -12,10 +12,19 @@ namespace CatalogoWeb
     public partial class ListaArticulos : System.Web.UI.Page
     {
         public bool FiltroAvanzado { get; set; }
+
+        public enum TipoUsuario
+        {
+            NULO = 0,
+            ADMIN = 1,
+            NORMAL = 2,
+        }
+
+        public TipoUsuario UsuarioTipo { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             FiltroAvanzado = cbFiltroAvanzado.Checked;
-
+            
             //if (IsPostBack)
             //    return;
 
@@ -25,14 +34,21 @@ namespace CatalogoWeb
                 Session.Add("ListaArticulos", negocio.Listar());
 
                 if (Session["usuario"] == null)
-                {
-                    gvArticulos.DataSource = Session["ListaArticulos"];
-                    gvArticulos.DataBind();
-                }
+                    UsuarioTipo = TipoUsuario.NULO;
+                else if (((Dominio.Usuario)Session["usuario"]).tipoUsuario == Dominio.TipoUsuario.ADMIN)
+                    UsuarioTipo = TipoUsuario.ADMIN;
                 else
+                    UsuarioTipo = TipoUsuario.NORMAL;
+
+                if(UsuarioTipo == TipoUsuario.ADMIN)
                 {
                     gvArticulosLogin.DataSource = Session["ListaArticulos"];
                     gvArticulosLogin.DataBind();
+                }
+                else
+                {
+                    gvArticulos.DataSource = Session["ListaArticulos"];
+                    gvArticulos.DataBind();
                 }
 
             }
@@ -107,6 +123,25 @@ namespace CatalogoWeb
 
         protected void btnBusquedaAvanzada_Click(object sender, EventArgs e)
         {
+            if(ddlCampo.SelectedIndex == 2)
+            {
+                if(txtFiltroAvanzado.Text == "")
+                {
+                    lblValidacion.Text = "Ingrese valor";
+                    return;
+                }
+
+                try
+                {
+                    decimal aux = decimal.Parse(txtFiltroAvanzado.Text);
+                }
+                catch (Exception)
+                {
+                    lblValidacion.Text = "Formato incorrecto";
+                    return;
+                }
+            }
+            lblValidacion.Text = "";
             try
             {
                 ArticulosNegocio negocio = new ArticulosNegocio();

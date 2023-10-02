@@ -23,9 +23,13 @@ namespace CatalogoWeb
 
 			if (Session["usuario"] == null)
 			{
-				Session.Add("error", "Primero debes loguearte");
-				Response.Redirect("Error.aspx");
-			}
+				Session.Add("mensaje", 2);	//primero debes loguearte
+				Response.Redirect("Mensaje.aspx");
+			}else if (((Dominio.Usuario)Session["usuario"]).tipoUsuario != TipoUsuario.ADMIN)
+			{
+				Session.Add("mensaje", 3);	//sin permiso de administrador
+                Response.Redirect("Mensaje.aspx");
+            }
 
 			try
 			{
@@ -86,6 +90,20 @@ namespace CatalogoWeb
 			if (!Page.IsValid)
 				return;
 
+			decimal precio;
+			try
+			{
+				if (txtPrecio.Text != "")
+					precio = decimal.Parse(txtPrecio.Text);
+				else
+					precio = 0;
+			}
+			catch (Exception)
+			{
+				lblPrecio.Text = "Formato incorrecto";
+				return;
+			}
+
 			try
 			{
 				ArticulosNegocio articulonegocio = new ArticulosNegocio();
@@ -95,7 +113,7 @@ namespace CatalogoWeb
 				nuevo.Codigo = txtCodigo.Text;
 				nuevo.Descripcion = txtDescripcion.Text;
 				nuevo.ImagenUrl = txtImagenUrl.Text;
-				nuevo.Precio = txtPrecio.Text != "" ? Decimal.Parse(txtPrecio.Text) : 0;
+				nuevo.Precio = precio;
 
 				nuevo.Marca = new Marcas();
 				nuevo.Marca.Id = int.Parse(ddlMarca.SelectedValue);

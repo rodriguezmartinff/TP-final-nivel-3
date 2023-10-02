@@ -22,7 +22,7 @@ namespace CatalogoWeb
             }
             else
             {
-                Session.Add("mensaje", "Primero debes logearte");
+                Session.Add("mensaje", 2);
                 Response.Redirect("Mensaje.aspx");
             }
             
@@ -30,6 +30,11 @@ namespace CatalogoWeb
 			{
 				FavoritosNegocio negocio = new FavoritosNegocio();
                 ListaFav = negocio.Listar(usuario.Id);
+                if(ListaFav.Count == 0)
+                {
+                    Session.Add("mensaje", 6);
+                    Response.Redirect("Mensaje.aspx", false);
+                }
                 gvFavoritos.DataSource = ListaFav;
                 gvFavoritos.DataBind();
 			}
@@ -42,7 +47,8 @@ namespace CatalogoWeb
 
         protected void gvFavoritos_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            string IdSeleccionado = gvFavoritos.SelectedDataKey.Value.ToString();
+            Response.Redirect("Detalle.aspx?Id=" + IdSeleccionado);
         }
 
         protected void gvFavoritos_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -55,12 +61,11 @@ namespace CatalogoWeb
             if(e.CommandName == "eliminar")
             {
                 int index = Convert.ToInt32(e.CommandArgument);
-                lblmensaje.Text = index.ToString();
                 try
                 {
                     FavoritosNegocio negocio = new FavoritosNegocio();
                     negocio.Eliminar(ListaFav[index].Id);
-                    Session.Add("mensaje", "Articulo eliminado");
+                    Session.Add("mensaje", 5);
                     Response.Redirect("Mensaje.aspx", false);
                 }
                 catch (Exception ex)

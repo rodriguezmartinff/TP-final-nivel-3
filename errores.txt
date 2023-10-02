@@ -1,0 +1,8 @@
+
+
+
+
+
+
+5- en perfil, al elegir imagen esta no se actualiza en el control image
+7- en pantalla mi perfil texbox contraseña en modo contraseña

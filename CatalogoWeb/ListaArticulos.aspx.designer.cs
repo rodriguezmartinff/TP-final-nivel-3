@@ -87,6 +87,15 @@ namespace CatalogoWeb
         protected global::System.Web.UI.WebControls.TextBox txtFiltroAvanzado;
 
         /// <summary>
+        /// lblValidacion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblValidacion;
+
+        /// <summary>
         /// btnBusquedaAvanzada control.
         /// </summary>
         /// <remarks>
@@ -96,15 +105,6 @@ namespace CatalogoWeb
         protected global::System.Web.UI.WebControls.Button btnBusquedaAvanzada;
 
         /// <summary>
-        /// gvArticulos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvArticulos;
-
-        /// <summary>
         /// gvArticulosLogin control.
         /// </summary>
         /// <remarks>
@@ -112,5 +112,14 @@ namespace CatalogoWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvArticulosLogin;
+
+        /// <summary>
+        /// gvArticulos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvArticulos;
     }
 }

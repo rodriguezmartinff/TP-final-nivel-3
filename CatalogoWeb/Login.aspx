@@ -47,7 +47,7 @@
             </div>
             <div class="mb-3">
                 <label for="txtPass">Contraseña:</label>
-                <asp:TextBox runat="server" ID="txtPass" CssClass="form-control" ClientIDMode="Static" />
+                <asp:TextBox runat="server" ID="txtPass" CssClass="form-control" ClientIDMode="Static" TextMode="Password"/>
                 <label class="valid-feedback">
                     Se ve bien!
                 </label>

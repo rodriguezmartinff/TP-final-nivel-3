@@ -59,11 +59,11 @@
             </div>
             <div class="mb-3">
                 <label>Ingrese contraseña:</label>
-                <asp:TextBox runat="server" ID="txtPass" CssClass="form-control" ClientIDMode="Static"/>
+                <asp:TextBox runat="server" ID="txtPass" CssClass="form-control" ClientIDMode="Static" TextMode="Password"/>
             </div>
             <div class="mb-3">
                 <label>Repita contraseña:</label>
-                <asp:TextBox runat="server" ID="txtRepPass" CssClass="form-control" ClientIDMode="Static"/>
+                <asp:TextBox runat="server" ID="txtRepPass" CssClass="form-control" ClientIDMode="Static" TextMode="Password" />
             </div>
             <asp:Button Text="Aceptar" ID="btnAceptar" runat="server" CssClass="btn btn-primary" OnClick="btnAceptar_Click" OnClientClick="return validar()"/>
             <asp:Button Text="Cancelar" ID="btnCancelar" runat="server" CssClass="btn btn-secondary" OnClick="btnCancelar_Click"/>

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Negocio
 {
-    internal class AccesoDatos
+    public class AccesoDatos
     {
         private SqlConnection Conexion;
         private SqlCommand Comando;
@@ -20,7 +21,9 @@ namespace Negocio
 
         public AccesoDatos()
         {
-            Conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true");
+            Conexion = new SqlConnection(ConfigurationManager.AppSettings["cadenaConexion"]);
+            
+            //Conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true");
             Comando = new SqlCommand();
 
         }

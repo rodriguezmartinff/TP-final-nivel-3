@@ -69,7 +69,8 @@
             <div class="mb-3">
                 <label for="txtPrecio" class="form-label">Precio:</label>
                 <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control" />
-                <asp:RegularExpressionValidator ErrorMessage="Solo numeros" CssClass="validar" ControlToValidate="txtPrecio" runat="server" ValidationExpression="^[0-9]+$" />
+                <%--<asp:RegularExpressionValidator ErrorMessage="Solo numeros" CssClass="validar" ControlToValidate="txtPrecio" runat="server" ValidationExpression="^[0-9]+$" />--%>
+                <asp:Label Text="" id="lblPrecio" runat="server" CssClass="validar"/>
             </div>
             <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" CssClass="btn btn-primary" OnClick="btnAceptar_Click" OnClientClick="return validar()" />
             <%if (Request.QueryString["Id"] != null)
@@ -92,8 +93,7 @@
                         <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control"
                             OnTextChanged="txtImagenUrl_TextChanged" AutoPostBack="true" />
                     </div>
-                    <asp:Image ImageUrl="https://wintechnology.co/wp-content/uploads/2021/11/imagen-no-disponible.jpg"
-                        ID="imgArticulo" runat="server" Style="width: 350px; height: 350px; object-fit: contain;" />
+                    <asp:Image ImageUrl="Imagenes/Articulos/sinfoto.jpg" ID="imgArticulo" runat="server" Style="width: 350px; height: 350px; object-fit: contain;" onerror="this.src='Imagenes/Articulos/sinfoto.jpg'"/>
 
                 </ContentTemplate>
             </asp:UpdatePanel>

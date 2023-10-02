@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,6 +90,33 @@ namespace Negocio
             {
                 datos.CerrarConexion();
 
+            }
+        }
+
+        public bool UsuarioExistente(Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.SetearConsulta("select email from USERS where email = @email");
+                datos.SetearParametro("@email", usuario.Email);
+                datos.EjecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
             }
         }
     }

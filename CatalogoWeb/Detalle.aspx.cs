@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -49,13 +50,42 @@ namespace CatalogoWeb
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            FavoritosNegocio negocio = new FavoritosNegocio();
+            if (Session["usuario"] == null)
+            {
+                Session.Add("mensaje", 2);
+                Response.Redirect("Mensaje.aspx");
+                return;
+            }
 
+            FavoritosNegocio negocio = new FavoritosNegocio();
+            List<Dominio.Favoritos> listaFav;
             try
             {
+                listaFav = negocio.Listar(Usuario.Id);
+                bool aux = new bool();
+
+                if(listaFav.Count != 0)
+                {
+                    for (var i = 0; i< listaFav.Count; i++)
+                    {
+                        if(listaFav[i].IdArticulo == int.Parse(IdProducto))
+                        {
+                            aux = true;
+                        }
+                    }
+
+                    if (aux)
+                    {
+                        Session.Add("mensaje", 8);
+                        Response.Redirect("Mensaje.aspx");
+                    }
+                }
+
                 negocio.Agregar( Usuario.Id, int.Parse(IdProducto));
-                Session.Add("mensaje", "Agregado correctamente");
+                Session.Add("mensaje", 7);
                 Response.Redirect("Mensaje.aspx", false);
+            }catch (ThreadAbortException)
+            {
             }
             catch (Exception ex)
             {
