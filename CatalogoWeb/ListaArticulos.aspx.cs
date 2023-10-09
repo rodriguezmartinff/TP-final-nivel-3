@@ -85,15 +85,15 @@ namespace CatalogoWeb
 
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            if (Session["usuario"] == null)
-            {
-                gvArticulos.DataSource = ((List<Articulos>)Session["ListaArticulos"]).FindAll(x => x.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
-                gvArticulos.DataBind();
-            }
-            else
+            if (UsuarioTipo == TipoUsuario.ADMIN)
             {
                 gvArticulosLogin.DataSource = ((List<Articulos>)Session["ListaArticulos"]).FindAll(x => x.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
                 gvArticulosLogin.DataBind();
+            }
+            else
+            {
+                gvArticulos.DataSource = ((List<Articulos>)Session["ListaArticulos"]).FindAll(x => x.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
+                gvArticulos.DataBind();
             }
         }
 
@@ -146,17 +146,17 @@ namespace CatalogoWeb
             {
                 ArticulosNegocio negocio = new ArticulosNegocio();
 
-                if (Session["usuario"] == null)
-                {
-                    gvArticulos.DataSource = negocio.Filtrar(ddlCampo.SelectedValue.ToString(),
-                    ddlCriterio.SelectedValue.ToString(), txtFiltroAvanzado.Text);
-                    gvArticulos.DataBind();
-                }
-                else
+                if (UsuarioTipo == TipoUsuario.ADMIN)
                 {
                     gvArticulosLogin.DataSource = negocio.Filtrar(ddlCampo.SelectedValue.ToString(),
                     ddlCriterio.SelectedValue.ToString(), txtFiltroAvanzado.Text);
                     gvArticulosLogin.DataBind();
+                }
+                else
+                {
+                    gvArticulos.DataSource = negocio.Filtrar(ddlCampo.SelectedValue.ToString(),
+                    ddlCriterio.SelectedValue.ToString(), txtFiltroAvanzado.Text);
+                    gvArticulos.DataBind();
                 }
             }
             catch (Exception ex)

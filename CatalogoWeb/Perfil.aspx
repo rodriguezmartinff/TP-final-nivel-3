@@ -44,9 +44,10 @@
                 <label>Id:</label>
                 <asp:TextBox runat="server" ID="txtId" CssClass="form-control" Enabled="false" />
             </div>
-            <div class="mb-3">
+            <div>
                 <label>Email:</label>
                 <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" ClientIDMode="Static" />
+                <asp:RegularExpressionValidator ErrorMessage="Formato email por favor" CssClass="validar" ControlToValidate="txtEmail" ValidationExpression="^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" runat="server" />
             </div>
             <div class="mb-3">
                 <label>Contraseña:</label>

@@ -51,7 +51,11 @@ namespace CatalogoWeb
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            if(txtEmail.Text == "" || txtContraseña.Text == "")
+            Page.Validate();
+            if (!Page.IsValid)
+                return;
+
+            if (txtEmail.Text == "" || txtContraseña.Text == "")
             {
                 Session.Add("mensaje", 10);
                 Response.Redirect("Mensaje.aspx");
@@ -72,6 +76,7 @@ namespace CatalogoWeb
                 {
                     string rutaImagen = Server.MapPath("./Imagenes/Perfil/");   //ruta del servidor
                     txtImagenLocal.PostedFile.SaveAs(rutaImagen + "Perfil-" + int.Parse(txtId.Text) + ".jpg");   //guarda la imagen en la ruta del servidor
+                    
                     usuario.UrlImagen = "Perfil-" + int.Parse(txtId.Text) + ".jpg";
                 }
                 else

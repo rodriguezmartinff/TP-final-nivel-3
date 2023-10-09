@@ -6,3 +6,8 @@
 
 5- en perfil, al elegir imagen esta no se actualiza en el control image
 7- en pantalla mi perfil texbox contraseña en modo contraseña
+
+8- no requiere modo contraseña al modificar el mail en el perfil ---------
+9- en login boton cnaclear no funcion apor que se activa el required----solucionado usando validationgroup en el required y en el boton
+10- en lista de articulos no funciona la busqueda avanzada o comun si estoy logueado como usuario-----solucionado
+11- en lista articulos estando logueado en busquewda avanzada se iva al carajo cuando apretaba el enter----solucionado con el asp panel

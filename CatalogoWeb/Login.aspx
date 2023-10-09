@@ -42,8 +42,8 @@
             <div class="mb-3">
                 <label class="form-label">Email:</label>
                 <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" ClientIDMode="Static" />
-                <asp:RequiredFieldValidator ErrorMessage="Campo requerido" CssClass="validacion" ControlToValidate="txtEmail" runat="server" />
-                <asp:RegularExpressionValidator ErrorMessage="Formato email por favor" CssClass="validacion" ControlToValidate="txtEmail" ValidationExpression="^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" runat="server" />
+                <asp:RequiredFieldValidator ErrorMessage="Campo requerido" CssClass="validacion" ControlToValidate="txtEmail" runat="server" ValidationGroup="Uno"/>
+                <asp:RegularExpressionValidator ErrorMessage="Formato email por favor" CssClass="validacion" ControlToValidate="txtEmail" ValidationGroup="Uno" ValidationExpression="^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" runat="server" />
             </div>
             <div class="mb-3">
                 <label for="txtPass">Contraseña:</label>
@@ -56,7 +56,7 @@
                 </label>
             </div>
             <div class="mb-3">
-                <asp:Button Text="Aceptar" CssClass="btn btn-primary" runat="server" ID="btnAceptar" OnClientClick="return Validar()" OnClick="btnAceptar_Click" />
+                <asp:Button Text="Aceptar" CssClass="btn btn-primary" runat="server" ID="btnAceptar" OnClientClick="return Validar()" OnClick="btnAceptar_Click" ValidationGroup="Uno"/>
                 <asp:Button Text="Cancelar" CssClass="btn btn-secondary" runat="server" ID="btnCancelar" OnClick="btnCancelar_Click" />
                 <asp:Label Text="" ID="lblMensaje" class="form-label" runat="server" />
             </div>
